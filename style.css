@@ -21,9 +21,9 @@ body{
     align-items: center;
 
     /* https://uigradients.com/#NeonLife */
-    background: #B3FFAB;
-    background: -webkit-linear-gradient(to bottom, #12FFF7, #B3FFAB); 
-    background: linear-gradient(to bottom, #12FFF7, #B3FFAB);
+    background: #12fff7;
+    background: -webkit-linear-gradient(to bottom, #336566, #12fff7); 
+    background: linear-gradient(to bottom, #336566, #12fff7);
 
 }
 
@@ -37,9 +37,9 @@ Picture in Picture
     width: 20rem;
     height: 5rem;
     padding: 2rem;
-    box-shadow: 
+    /*box-shadow: 
         1px 3px 6px rgba(0, 0, 0, 0.5),
-        1px 1px 10px rgba(0, 0, 0, 0.2) inset;
+        1px 1px 10px rgba(0, 0, 0, 0.2) inset;*/
     text-align: center;
     font-family: 'Major Mono Display', monospace;
     font-weight: bold;
@@ -61,9 +61,9 @@ Picture in Picture
     border-image-outset: 2rem;
     text-shadow: 1px 1px 10px #B3FFAB;
     border-radius: 1rem;
-    box-shadow: 
+    /*box-shadow: 
         1px 3px 6px rgba(0, 0, 0, 0.8),
-        1px 3px 10px rgba(0, 0, 0, 0.5) inset;
+        1px 3px 10px rgba(0, 0, 0, 0.5) inset;*/
 }
 
 .capture-button:active{
