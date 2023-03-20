@@ -1,112 +1,105 @@
-@import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap');
+// -------------------------------
+// VARIABLES PLACE
+// -------------------------------
 
-/* ----------------------------------------
-Resets / Defaults / Common 
--------------------------------------------- */
-
-button{
-    all: initial;
-    cursor: pointer;
-}
-
-html{
-    box-sizing: border-box;
-}
-
-body{
-    min-height: 100vh;
-    margin: 0;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-
-    /* https://uigradients.com/#NeonLife */
-    background: #B3FFAB;
-    background: -webkit-linear-gradient(to bottom, #12FFF7, #B3FFAB); 
-    background: linear-gradient(to bottom, #12FFF7, #B3FFAB);
-
-}
+// --- DOM ELEMENTS ---
+const
+    videoElement = document.querySelector('.video'),
+    captureButton = document.querySelector('.capture-button'),
+    showStreamButton = document.querySelector('.show-stream'),
+    eyeImage = document.querySelector('.show-stream img');
 
 
-
-/* ---------------------------------------
-Picture in Picture
-------------------------------------------*/
-
-.capture-button{
-    width: 20rem;
-    height: 5rem;
-    padding: 2rem;
-    box-shadow: 
-        1px 3px 6px rgba(0, 0, 0, 0.5),
-        1px 1px 10px rgba(0, 0, 0, 0.2) inset;
-    text-align: center;
-    font-family: 'Major Mono Display', monospace;
-    font-weight: bold;
-    font-size: 1.6rem;
-    background-color: transparent;
-    color: #fff;
-    -webkit-filter: url("#filter");
-    filter: url("#filter");
-    border: solid;
-    border-image: linear-gradient(to top, #ece9e6d5, #ffffffbd) 5 / .5rem;
-    border-image-outset: 0rem;
-    border-radius: 5rem;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
-    transition: all .3s;
-}
-
-.capture-button:hover{
-    border-image: linear-gradient(to bottom, #ece9e641, #ffffff54) 5 / .5rem;
-    border-image-outset: 2rem;
-    text-shadow: 1px 1px 10px #B3FFAB;
-    border-radius: 1rem;
-    box-shadow: 
-        1px 3px 6px rgba(0, 0, 0, 0.8),
-        1px 3px 10px rgba(0, 0, 0, 0.5) inset;
-}
-
-.capture-button:active{
-    transform: translateY(3px);
-    box-shadow: 
-    1px 3px 6px rgba(0, 0, 0, 0.8),
-    1px 5px 15px rgba(0, 0, 0, 0.7) inset;
-}
+// --- STATE OF THE PICTURE IN PICTURE ---
+let 
+    pictureIsInPicture = false,
+    mediaStreamExists = false;
 
 
-.show-stream{
-    width: 4rem;
-    display: none;
-}
+// ------------------------------------
+// WORKING WITH THE SCREEN CAPTURE API
+// ------------------------------------
 
-.show-stream img{
-    width: 100%;
-    filter: invert(2) drop-shadow(1px 1px 5px rgba(0, 0, 0, 0.3));
-    transition: all 0.1s;
-}
+async function selectMediaStream() {
+    try {
 
-.show-stream img:hover{
-    filter: invert(2) drop-shadow(1px 1px 4px #B3FFAB);
-}
+        // => capturing screen contents as a live mediaStream
+        const mediaStream = await navigator.mediaDevices.getDisplayMedia();
 
-/* [hidden]{
-    display: none;
-} */
+        // => link the media stream with the video element, to have a stage
+        videoElement.srcObject = mediaStream;
 
-/* ---------------------------------------
-Media Query
-------------------------------------------*/
+        // => activate the media stream automatically
+        videoElement.onloadedmetadata = async () => {
+            videoElement.play();
+        };
+        
+        mediaStreamExists = videoElement.srcObject;
 
-@media screen and (max-width: 850px){
-    body{
-        flex-direction: column;
+    } catch (error) {
+      alert(error);
     }
-}
+  }
 
 
-@media screen and (max-width: 500px) {
-    .capture-button{
-        width: 15rem;
-        padding: 1rem;
+// => stop current stream 
+const stopStreamedVideo = (videoElem) => {
+    const stream = videoElem.srcObject;
+    const tracks = stream.getTracks();
+
+    tracks.forEach((track) => {
+        track.stop();
+    });
+
+    videoElem.srcObject = null;
+    mediaStreamExists = videoElem.srcObject;
     }
-}
+
+
+// => show the captured media stream
+captureButton.addEventListener('click', async () => {
+    captureButton.disabled = true;
+
+    if(!mediaStreamExists){
+       await selectMediaStream();
+    }
+    else if(mediaStreamExists){
+        stopStreamedVideo(videoElement);
+
+        // => if no stream exist, capture a new target
+        mediaStreamExists || await selectMediaStream();
+    }
+
+    captureButton.disabled = false;
+    captureButton.innerHTML = !mediaStreamExists ? 'Capture' : 'New Capture' ;
+    showStreamButton.style.display = !mediaStreamExists ? 'none' : 'block';
+});
+
+
+// note: 
+// the requestPictureInPicture method needs an explicit user action and can`t start automatically
+
+// => show or hide the stream 
+showStreamButton.addEventListener('click', async()=>{
+    if(!pictureIsInPicture){
+        // => call the requestPictureInPicture method of the HTMLVideoElement
+        await videoElement.requestPictureInPicture();
+
+        pictureIsInPicture = true;
+
+    } else if (pictureIsInPicture) {
+        try{
+            // => close the picture in picture
+            await document.exitPictureInPicture();
+
+            pictureIsInPicture = false;
+
+        } catch(error) {
+            stopStreamedVideo(videoElement);
+            location.reload();
+        }
+      
+    }
+
+    eyeImage.src = !pictureIsInPicture ? './view.png' : './hide.png';
+})
