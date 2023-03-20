@@ -21,9 +21,9 @@ body{
     align-items: center;
 
     /* https://uigradients.com/#NeonLife */
-    background: #B3FFAB;
-    background: -webkit-linear-gradient(to bottom, #12FFF7, #B3FFAB); 
-    background: linear-gradient(to bottom, #12FFF7, #B3FFAB);
+    background: #12FFF7;
+    background: -webkit-linear-gradient(to bottom, #427a6b, #12FFF7); 
+    background: linear-gradient(to bottom, #427a6b, #12FFF7);
 
 }
 
