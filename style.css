@@ -48,19 +48,19 @@ Picture in Picture
     color: #fff;
     -webkit-filter: url("#filter");
     filter: url("#filter");
-    /*border: solid;
+    border: solid;
     border-image: linear-gradient(to top, #ece9e6d5, #ffffffbd) 5 / .5rem;
     border-image-outset: 0rem;
-    border-radius: 5rem;*/
+    border-radius: 5rem;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
     transition: all .3s;
 }
 
 .capture-button:hover{
-    /*border-image: linear-gradient(to bottom, #ece9e641, #ffffff54) 5 / .5rem;
-    border-image-outset: 2rem;*/
-    text-shadow: 1px 1px 10px #B3FFAB;
-    /*border-radius: 1rem;*/
+    border-image: linear-gradient(to bottom, #ece9e641, #ffffff54) 5 / .5rem;
+    border-image-outset: 1.8rem;
+    text-shadow: 1px 1px 10px #12fff7;
+    border-radius: 1.2rem;
     box-shadow: 
         1px 3px 6px rgba(0, 0, 0, 0.8),
         1px 3px 10px rgba(0, 0, 0, 0.5) inset;
