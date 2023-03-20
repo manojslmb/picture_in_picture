@@ -37,9 +37,7 @@ Picture in Picture
     width: 20rem;
     height: 5rem;
     padding: 2rem;
-    box-shadow: 
-        1px 3px 6px rgba(0, 0, 0, 0.5),
-        1px 1px 10px rgba(0, 0, 0, 0.2) inset;
+    
     text-align: center;
     font-family: 'Major Mono Display', monospace;
     font-weight: bold;
@@ -61,17 +59,12 @@ Picture in Picture
     border-image-outset: 1.8rem;
     text-shadow: 1px 1px 10px #12fff7;
     border-radius: 1.2rem;
-    box-shadow: 
-        1px 3px 6px rgba(0, 0, 0, 0.8),
-        1px 3px 10px rgba(0, 0, 0, 0.5) inset;
+    
 }
 
 .capture-button:active{
     transform: translateY(3px);
-    box-shadow: 
-    1px 3px 6px rgba(0, 0, 0, 0.8),
-    1px 5px 15px rgba(0, 0, 0, 0.7) inset;
-}
+    
 
 
 .show-stream{
