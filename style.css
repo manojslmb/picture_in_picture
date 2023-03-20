@@ -60,7 +60,7 @@ Picture in Picture
     /*border-image: linear-gradient(to bottom, #ece9e641, #ffffff54) 5 / .5rem;
     border-image-outset: 2rem;*/
     text-shadow: 1px 1px 10px #B3FFAB;
-    border-radius: 1rem;
+    /*border-radius: 1rem;*/
     box-shadow: 
         1px 3px 6px rgba(0, 0, 0, 0.8),
         1px 3px 10px rgba(0, 0, 0, 0.5) inset;
