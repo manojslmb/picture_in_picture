@@ -46,10 +46,10 @@ Picture in Picture
     color: #fff;
     -webkit-filter: url("#filter");
     filter: url("#filter");
-    /*border: solid;
+    border: solid;
     border-image: linear-gradient(to top, #ece9e6d5, #ffffffbd) 5 / .5rem;
     border-image-outset: 0rem;
-    border-radius: 5rem;*/
+    border-radius: 5rem;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
     transition: all .3s;
 }
